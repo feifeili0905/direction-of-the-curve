@@ -1,0 +1,36 @@
+function V_out=lisphere
+
+N1=6;
+N=5;
+thetavec = linspace(0,pi,N1);
+phivec = linspace(0,2*pi,2*N);
+[th, ph] = meshgrid(thetavec,phivec);
+R = ones(size(th)); 
+
+x = R.*sin(th).*cos(ph);
+y = R.*sin(th).*sin(ph);
+z = R.*cos(th);
+for i=1:2*N
+    for j=1:N1
+V_out1{i,j}=[x(i,j) y(i,j) z(i,j)];
+
+    end
+end
+for i=1:2*N
+V_out1{i,N1}=[0 0 -1];
+
+end
+for i=1:N1
+    V_out1{2*N,i}=V_out1{1,i};
+end
+
+for i=1:2*N
+    for j=1:N1
+        n=(i-1)*N1+j;
+        V_out11(n,:)=V_out1{i,j};
+    end
+end
+V_out= unique(V_out11,'rows');
+% figure;
+% surf(x,y,z);
+end
